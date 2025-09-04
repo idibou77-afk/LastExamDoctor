@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./src/output.css">
+    <style>
+    .btn {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .btn svg {
+      width: 28px;
+      height: 28px;
+      transition: transform 0.4s ease;
+      z-index: 2;
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      transform: scale(0);
+      transition: transform 0.5s ease;
+      z-index: 1;
+    }
+
+    .btn:hover::after {
+      transform: scale(2.5);
+    }
+
+    .btn:hover {
+      box-shadow: 0 0 15px #2ecc71;
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    .btn-outline {
+      border: 2px solid #2ecc71;
+      background: white;
+    }
+
+    .btn-outline svg {
+      fill: #2ecc71;
+    }
+
+    .btn-outline:active {
+      background: #2ecc71;
+    }
+
+    .btn-outline:active svg {
+      fill: white;
+      transform: translateX(-5px) scale(1.2);
+    }
+
+    .btn-filled {
+      background: #2ecc71;
+      border: none;
+    }
+
+    .btn-filled svg {
+      fill: white;
+    }
+
+    .btn-filled:active {
+      background: #27ae60;
+    }
+
+    .btn-filled:active svg {
+      transform: translateX(5px) scale(1.2);
+    }
+    
+    .appointment-btn {
+      position: relative;
+      padding: 18px 40px;
+      font-size: 18px;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #2ecc71, #27ae60);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      letter-spacing: 0.5px;
+    }
+
+    .appointment-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 300%;
+      height: 300%;
+      background: rgba(255,255,255,0.15);
+      transform: translate(-50%, -50%) scale(0);
+      border-radius: 50%;
+      transition: transform 0.6s ease;
+      z-index: 1;
+    }
+
+    .appointment-btn:hover::before {
+      transform: translate(-50%, -50%) scale(1.5);
+    }
+
+    .appointment-btn:hover {
+      box-shadow: 0 0 25px #2ecc71;
+      transform: translateY(-2px);
+    }
+
+    .appointment-btn:active {
+      transform: scale(0.96);
+      box-shadow: 0 0 15px #27ae60;
+    }
+
+    .appointment-btn span {
+      position: relative;
+      z-index: 2;
+      display: inline-block;
+      animation: slideIn 0.6s ease forwards;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(12px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+        .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      padding: 30px;
+ 
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      border-radius: 8px;
+      padding: 10px;
+    }
+    .item.active {
+      background: #e6f2ee;
+    }
+
+    .number {
+      font-size: 20px;
+      font-weight: bold;
+      color: #2a7f62;
+      width: 50px;
+      text-align: center;
+      margin-right: 15px;
+    }
+
+    .text {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .content-box {
+      margin-top: 30px;
+      padding: 20px;
+      background: #d0e8dc;
+      border-radius: 8px;
+      color: #2a7f62;
+      font-size: 16px;
+      display: none;
+    }
+
+    .content-box.active {
+      display: block;
+    }
+    .royal-action-btn {
+      background-color: #ffffff;
+      color: #28a745;
+      padding: 14px 28px;
+      border: 2px solid #28a745;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .royal-action-btn::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(40, 167, 69, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.4s ease, height 0.4s ease;
+    }
+
+    .royal-action-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 16px rgba(40, 167, 69, 0.4);
+    }
+
+    .royal-action-btn:active::after {
+      width: 200px;
+      height: 200px;
+    }
+
+  </style>
+</head>
+<body>
+    <header>
+        <nav class="xl:flex items-center justify-evenly p-10 hidden ">
+            <p>Сеть клиник Томской области</p>
+            <p>Версия для слабовидящих</p>
+            <div class="flex gap-5 items-center">
+                <p>+ 7 (978) 00-00-000</p>
+                <a href="./index1.html">
+                    <button class="appointment-btn">
+                        <span>Записаться на прием</span>
+                    </button>           
+                </a>
+                    </div>
+        </nav>
+        <nav class="flex justify-evenly items-center p-10 gap-5 xl:p-0">
+            <img src="./image 1.png">
+            <img src="./burger.png" class="block xl:hidden">
+            <ul class="xl:flex gap-5 hidden">
+                <li>Врачи</li>
+                <li>Услуги</li>
+                <li>Диагностика</li>
+                <li>Анализы</li>
+                <li>Акции</li>
+                <li>Пациентам</li>
+                <li>О клинике</li>
+                <li>Отзывы</li>
+                <li>Контакты</li>
+            </ul>
+        </nav>
+        <section class="bg-gradient-to-b from-[#3BB96D] to-[#279A59] flex justify-between p-10 items-center text-white">
+        <aside class="flex flex-col gap-10 mt-[100px] xl:p-0">
+            <h1 class="text-6xl font-bold">Lorem ipsum <br>dolor sit amet,<br> consectetur</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br> Viverra amet dolor sed mi tincidunt pharetra montes. Lorem<br> ipsum dolor sit amet, consectetur adipiscing elit. Viverra<br> amet dolor sed mi tincidunt pharetra montes.</p>
+            <button class="w-[220px] h-[48px] bg-white text-black rounded-4xl">Подробнее →
+
+            </button>
+        </aside>
+        <img src="./TDV_M63_010 1.png" class="hidden xl:block">
+        </section>
+    </header>
+    <main>
+        <section class="flex justify-between p-10 items-center flex-col xl:flex-row">
+            <aside class="flex flex-col text-center gap-10 xl:text-start">
+                <h1 class="text-6xl font-bold">Немного о нас</h1>
+                <p class="w-full max-w-[300px] mx-auto xl:mx-0 xl:w-[550px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ipsum diam pretium risus, ultrices felis a. Adipiscing maecenas mattis ullamcorper magnis eget varius. At lobortis tristique mattis orci aenean. Pretium, posuere tristique id potenti ac. Ac praesent arcu vitae arcu. Velit ut et, leo, augue bibendum euismod in. Turpis massa, commodo vestibulum bibendum amet orci velit, risus. Semper mauris curabitur auctor id amet mauris lacus. Ut quis nisi, ac consequat sed massa egestas. Sed adipiscing scelerisque enim, id amet eget. Ipsum dui a bibendum quisque in.
+                <br>
+                <br>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ipsum diam pretium risus, ultrices felis a. Adipiscing maecenas mattis ullamcorper magnis eget varius. At lobortis tristique mattis orci aenean. Pretium, posuere tristique id potenti ac. </p>
+            </aside>
+            <img src="./Mask group (3).png" class="im3">
+        </section>
+        <section>
+            <div class="flex justify-between p-10">
+                <h1 class="xl:text-6xl xl:font-bold">Направления нашей работы</h1>
+                <a href="./index1.html">
+                    <button class="appointment-btn hidden xl:block">
+                        <span>Все направления </span>
+                    </button>
+                </a>
+            </div>
+            <div class="flex justify-evenly gap-100 items-center flex-col xl:flex-row xl:justify-center xl:gap-10">
+                <article class="w-full max-w-[288px] mb-[100px] h-[269px] xl:w-[270px]  xl:h-[306px] flex flex-col gap-2 shadow-2xl ">
+                    <img src="./Rectangle 5.png">
+                    <h4 class="pl-5">Гинекология</h4>
+                    <a class="text-[#3BB96D] pl-5 underline" href="./index1.html">Подробнее</a>
+                </article>
+                <article class="w-full max-w-[388px] mb-[100px] h-[269px] xl:w-[270px] xl:h-[306px] flex flex-col gap-2 shadow-2xl ">
+                    <img src="./Rectangle 5 (1).png">
+                    <h4 class="pl-5">Урология</h4>
+                    <a class="text-[#3BB96D] pl-5 underline" href="./index1.html">Подробнее</a>
+                </article>
+                <article class="w-full max-w-[388px] mb-[100px] h-[269px] xl:w-[270px] xl:h-[306px] flex flex-col gap-2 shadow-2xl ">
+                    <img src="./Rectangle 5 (2).png">
+                    <h4 class="pl-5">Отоларингология</h4>
+                    <a class="text-[#3BB96D] pl-5 underline" href="./index1.html">Подробнее</a>
+                </article>
+                <article class="w-full max-w-[388px] mb-[100px] h-[269px] xl:w-[270px] xl:h-[306px] flex flex-col gap-2 shadow-2xl ">
+                    <img src="./Rectangle 5 (3).png">
+                    <h4 class="pl-5">Неврология</h4>
+                    <a class="text-[#3BB96D] pl-5 underline" href="./index1.html">Подробнее</a>
+                </article>
+            </div>
+        </section>
+        <section class="bg-[#F1F5F8]">
+            <div class="flex justify-between p-10 mt-[100px]">
+                <h1 class="xl:text-6xl xl:font-bold">Наши специалисты</h1>
+                <div class="xl:flex  gap-10 hidden ">
+                    <a href="./index1.html">
+                        <div class="btn btn-outline hidden xl:block">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M15 18l-6-6 6-6" />
+                            </svg>
+                        </div>
+                    </a>
+                    <a href="./index1.html">
+                        <div class="btn btn-filled">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M9 6l6 6-6 6" />
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+                <div class="flex justify-evenly flex-col items-center gap-10 xl:gap-0 xl:flex-row">
+                <article class="flex flex-col gap-5">
+                    <img src="./Rectangle 5 (4).png">
+                    <h4>Иванов Иван Иванович</h4>
+                    <p>Врач-уролог</p>
+                    <a href="./index1.html">
+                        <button class="appointment-btn ">
+                            <span>Записаться на прием</span>
+                        </button>
+                    </a>
+                </article>
+                <article class="flex flex-col gap-5">
+                    <img src="./Rectangle 5 (4).png">
+                    <h4>Иванов Иван Иванович</h4>
+                    <p>Врач-уролог</p>
+                    <a href="./index1.html">
+
+                        <button class="appointment-btn">
+                            <span>Записаться на прием</span>
+                        </button>
+                    </a>
+                </article>
+                <article class="flex flex-col gap-5">
+                    <img src="./Rectangle 5 (4).png">
+                    <h4>Иванов Иван Иванович</h4>
+                    <p>Врач-уролог</p>
+                    <a href="./index1.html">
+
+                        <button class="appointment-btn">
+                            <span>Записаться на прием</span>
+                        </button>
+                    </a>
+                </article>
+                <article class="flex flex-col gap-5">
+                    <img src="./Rectangle 5 (4).png">
+                    <h4>Иванов Иван Иванович</h4>
+                    <p>Врач-уролог</p>
+                    <a href="./index1.html">
+                        <button class="appointment-btn">
+                            <span>Записаться на прием</span>
+                        </button>
+                    </a>
+                </article>
+            </div>
+            <div class="flex justify-center p-20">
+                  <button class="royal-action-btn" onclick="handleClick()">Все специалисты</button>
+
+  <script>
+    function handleClick() {
+      alert("Royal button activated 👑");
+    }
+  </script>
+            </div>
+        </section>
+       <section class="flex justify-center gap-10 xl:flex-row flex-col items-center p-5 xl:p-0">
+        <div>
+            <article class="flex w-full max-w-[400px] xl:max-w-none xl:w-[660px] rounded-2xl bg-[#279A59] justify-evenly items-center flex-col xl:p-10 xl:flex-row">
+                <aside class="flex flex-col text-white gap-5 p-5 xl:p-0">
+                    <h1 class="font-bold">Скидка -20% на МРТ</h1>
+                    <p class="text-[10px] xl:text-[16px] w-full max-w-[318px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra amet dolor sed mi tincidunt pharetra montes. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra amet dolor sed mi tincidunt pharetra montes.</p>
+                    <p>Акция действует до </p>
+                    <h1 class="font-bold">22.03.2023</h1>
+                    <button class="w-[170px] h-[38px] rounded-4xl bg-white text-[#279A59]">Подробнее</button>
+                </aside>
+                <img src="./image 4.png" class="xl:w-[295px] xl:h-[262px]">
+            </article>
+        </div>
+        <div class="flex gap-10 flex-col xl:flex-row w-full">
+            <div class="text-white flex gap-5 flex-col w-full">
+                <article class="bg-[#6567F2] w-full max-w-[400px] xl:w-[300px] h-[176px] rounded-2xl p-2 flex">
+                    <aside class="flex flex-col gap-2">
+                        <h1 class="font-bold">Скидка -20% на МРТ</h1>
+                        <p>Акция действует до </p>
+                        <p>22.03.2023</p>
+                        <button class="w-[110px] h-[30px] rounded-4xl bg-white text-[#279A59]">Подробнее</button>
+                    </aside>
+                    <img src="./image 4.png" class="w-[139px] h-[123px]">
+                </article>
+                <article class="bg-[#FFDB5C] w-full max-w-[400px] xl:w-[300px] p-2 h-[176px] rounded-2xl flex">
+                    <aside class="flex flex-col gap-2">
+                        <h1 class="font-bold">Скидка -20% на МРТ</h1>
+                        <p>Акция действует до </p>
+                        <p>22.03.2023</p>
+                        <button class="w-[110px] h-[30px] rounded-4xl bg-white text-[#279A59]">Подробнее</button>
+                    </aside>
+                    <img src="./image 4.png" class="w-[139px] h-[123px]">
+                </article>
+            </div>
+            <div class="text-white flex gap-5 flex-col w-full">
+                <article class="bg-[#F57676] w-full max-w-[400px] xl:w-[300px] p-2 h-[176px] rounded-2xl flex">
+                    <aside class="flex flex-col gap-2">
+                        <h1 class="font-bold">Скидка -20% на МРТ</h1>
+                        <p>Акция действует до </p>
+                        <p>22.03.2023</p>
+                        <button class="w-[110px] h-[30px] rounded-4xl bg-white text-[#279A59]">Подробнее</button>
+                    </aside>
+                    <img src="./image 4.png" class="w-[139px] h-[123px]">
+                </article>
+                <article class="bg-[#27C8DA] w-full max-w-[400px] xl:w-[300px] p-2 h-[176px] rounded-2xl flex">
+                    <aside class="flex flex-col gap-2">
+                        <h1 class="font-bold">Скидка -20% на МРТ</h1>
+                        <p>Акция действует до </p>
+                        <p>22.03.2023</p>
+                        <button class="w-[110px] h-[30px] rounded-4xl bg-white text-[#279A59]">Подробнее</button>
+                    </aside>
+                    <img src="./image 4.png" class="w-[139px] h-[123px]">
+                </article>
+            </div>
+        </div>
+       </section>
+        <section class="bg-[#F1F5F8]">
+            <div>
+                <h1 class="text-6xl p-15 xl:p-20 font-bold">Стационар</h1>
+            </div>
+            <div class="flex justify-evenly xl:flex-row flex-col gap-10 items-center p-5 xl:p-0">
+                <article class="w-full max-w-[367px] h-[100px] bg-[#27C8DA] flex justify-center items-center gap-10 rounded-3xl p-2">
+                   <div class="bg-white rounded-[50%] w-[70px] h-[70px] flex justify-center items-center flex-shrink-0"><img src="./monitoring 1.png"></div>
+                   <p>Отлично оборудованные <br>операционные</p>  
+                </article>
+                <article class="w-full max-w-[367px] h-[100px] bg-[#27C8DA] flex justify-center items-center gap-10 rounded-3xl p-2">
+                   <div class="bg-white rounded-[50%] w-[70px] h-[70px] flex justify-center items-center flex-shrink-0"><img src="./hospitalisation 1.png"></div>
+                   <p>Полный контроль за<br> состоянием пациентов</p>  
+                </article>
+                <article class="w-full max-w-[367px] h-[100px] bg-[#27C8DA] flex justify-center items-center gap-10 rounded-3xl p-2">
+                   <div class="bg-white rounded-[50%] w-[70px] h-[70px] flex justify-center items-center flex-shrink-0"><img src="./convenient 1.png"></div>
+                   <p>Комфорт и забота после <br>операции</p>  
+                </article>
+            </div>
+            <section class="flex justify-between xl:p-10 flex-col text-center items-center mt-[50px] xl:flex-row xl:text-start p-5 xl:p-0">
+            <aside class="w-full">
+                <div class="w-full max-w-[400px] mx-auto xl:max-w-none xl:w-[500px] flex flex-col gap-10 mb-[100px]">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ipsum diam pretium risus, ultrices felis a. Adipiscing maecenas mattis ullamcorper magnis eget varius. At lobortis tristique mattis orci aenean. Pretium, posuere tristique id potenti ac. Ac praesent arcu vitae arcu. Velit ut et, leo, augue bibendum euismod in. Turpis massa, commodo vestibulum bibendum amet orci velit, risus. Semper mauris curabitur auctor id amet mauris lacus. Ut quis nisi, ac consequat sed massa egestas. Sed adipiscing scelerisque enim, id amet eget. Ipsum dui a bibendum quisque in.
+                        <br>
+                        <br>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ipsum diam pretium risus, ultrices felis a. Adipiscing maecenas mattis ullamcorper magnis eget varius. At lobortis tristique mattis orci aenean. Pretium, posuere tristique id potenti ac. </p>
+                    </div>
+                <button class="appointment-btn">Подробнее</button>
+            </aside>
+            <img src="./Mask group (3).png" class="mt-[50px] xl:mt-0 w-[386px] h-[413px]">
+        </section>
+        </section>
+        <section>
+            <div>
+                <h1 class="xl:text-6xl xl:p-20 font-bold">Наше оборудование</h1>
+            </div>
+            <div class="flex justify-evenly flex-col xl:flex-row items-center gap-10 xl:gap-0 p-5 xl:p-0">
+                <article class="bg-[#F4F6FA] h-[540px] mr-[20px] rounded-[60px] w-full max-w-[367px] p-10">
+                    <img src="./image 4 (1).png">
+                    <h4>МРТ</h4>
+                    <ul class="flex flex-col gap-5">
+                        <li>1.5 тесла / до 200 кг</li>
+                        <li>3D/4D запись исследования</li>
+                        <li>МР маммография</li>
+                        <li>МРТ всего тела за 1.5 часа</li>
+                        <li>МРТ суставов</li>
+                    </ul>
+                </article>
+                    <article class="bg-[#F4F6FA] h-[540px] mr-[20px] rounded-[60px] w-full max-w-[367px] p-10">
+                    <img src="./image 4 (2).png">
+                    <h4>КТ</h4>
+                    <ul class="flex flex-col gap-5">
+                        <li>1.5 тесла / до 200 кг</li>
+                        <li>3D/4D запись исследования</li>
+                        <li>МР маммография</li>
+                        <li>МРТ всего теа за 1.5 часа</li>
+                        <li>МРТ суставов</li>
+                    </ul>
+                </article>
+                    <article class="bg-[#F4F6FA] h-[540px] rounded-[60px] w-full max-w-[367px] p-10">
+                    <img src="./image 4 (3).png">
+                    <h4>Рентген</h4>
+                    <ul class="flex flex-col gap-5">
+                        <li>1.5 тесла / до 200 кг</li>
+                        <li>3D/4D запись исследования</li>
+                        <li>МР маммография</li>
+                        <li>МРТ всего тела за 1.5 часа</li>
+                        <li>МРТ суставов</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+        <section>
+            <div>
+                <h1 class="xl:text-6xl xl:p-20">Наши преимущества</h1>
+            </div>
+            <div class="flex justify-center p-5 xl:p-0">
+           <div class="w-full max-w-[1000px] flex justify-center items-center  rounded-2xl bg-white p-10 xl:p-10 ">
+
+    <div class="flex flex-col xl:flex-row justify-center items-start gap-6 xl:gap-10">
+
+      <!-- 🟩 Left Column: Numbered List with Shadow -->
+      <aside class="w-full xl:w-[450px] rounded-xl bg-white shadow-md p-6">
+        <div class="space-y-4">
+          <div class="item flex items-center p-4 rounded-lg cursor-pointer transition-colors bg-[#e6f2ee]" onclick="showContent(0)">
+            <div class="number text-[#2a7f62] font-bold text-xl w-12 text-center mr-4 pr-4 border-r">01</div>
+            <div class="text text-lg text-gray-800">Профессионализм</div>
+          </div>
+          <div class="item flex items-center p-4 rounded-lg cursor-pointer transition-colors hover:bg-[#e6f2ee]" onclick="showContent(1)">
+            <div class="number text-[#2a7f62] font-bold text-xl w-12 text-center mr-4 pr-4 border-r">02</div>
+            <div class="text text-lg text-gray-800">Широкий спектр услуг</div>
+          </div>
+          <div class="item flex items-center p-4 rounded-lg cursor-pointer transition-colors hover:bg-[#e6f2ee]" onclick="showContent(2)">
+            <div class="number text-[#2a7f62] font-bold text-xl w-12 text-center mr-4 pr-4 border-r">03</div>
+            <div class="text text-lg text-gray-800">Современное оборудование</div>
+          </div>
+          <div class="item flex items-center p-4 rounded-lg cursor-pointer transition-colors hover:bg-[#e6f2ee]" onclick="showContent(3)">
+            <div class="number text-[#2a7f62] font-bold text-xl w-12 text-center mr-4 pr-4 border-r">04</div>
+            <div class="text text-lg text-gray-800">Высокий уровень обслуживания</div>
+          </div>
+          <div class="item flex items-center p-4 rounded-lg cursor-pointer transition-colors hover:bg-[#e6f2ee]" onclick="showContent(4)">
+            <div class="number text-[#2a7f62] font-bold text-xl w-12 text-center mr-4 pr-4 border-r">05</div>
+            <div class="text text-lg text-gray-800">Скорая помощь и служба помощи на дому</div>
+          </div>
+          <div class="item flex items-center p-4 rounded-lg cursor-pointer transition-colors hover:bg-[#e6f2ee]" onclick="showContent(5)">
+            <div class="number text-[#2a7f62] font-bold text-xl w-12 text-center mr-4 pr-4 border-r">06</div>
+            <div class="text text-lg text-gray-800">Терапевтические и хирургические стационары</div>
+          </div>
+          <div class="item flex items-center p-4 rounded-lg cursor-pointer transition-colors hover:bg-[#e6f2ee]" onclick="showContent(6)">
+            <div class="number text-[#2a7f62] font-bold text-xl w-12 text-center mr-4 pr-4 border-r">07</div>
+            <div class="text text-lg text-gray-800">Высокий уровень обслуживания</div>
+          </div>
+        </div>
+
+        <div id="content" class="mt-6 p-4 bg-[#d0e8dc] rounded-lg text-[#2a7f62] text-base block shadow-sm">
+          Вы выбрали: <strong>Профессионализм</strong>
+        </div>
+      </aside>
+
+      <!-- 🟦 Right Column: Text + Stats + Image with Shadow -->
+      <aside class="w-full xl:w-[510px] rounded-xl bg-white shadow-md p-6 flex flex-col gap-6">
+        <h1 class="text-4xl xl:text-5xl font-bold text-[#2a7f62]">Профессионализм</h1>
+        <p class="text-[16px] text-gray-700">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sodales praesent ut rhoncus fermentum at. Tellus quis aliquam pharetra eu eget morbi pharetra nunc facilisis. Urna laoreet in bibendum lorem consequat. Ac placerat posuere duis risus. Dignissim condimentum nulla nullam orci nulla. Mauris sed facilisis viverra et arcu tortor.
+        </p>
+
+        <div class="flex flex-col items-center gap-6">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+            <div>
+              <h1 class="text-[#3BB96D] text-4xl font-bold">+2 800</h1>
+              <p class="text-gray-600">пациентов</p>
+            </div>
+            <div>
+              <h1 class="text-[#3BB96D] text-4xl font-bold">+2 800</h1>
+              <p class="text-gray-600">пациентов</p>
+            </div>
+            <div>
+              <h1 class="text-[#3BB96D] text-4xl font-bold">+2 800</h1>
+              <p class="text-gray-600">пациентов</p>
+            </div>
+          </div>
+
+          <div>
+            <img src="./doctor illustration 1.png" alt="Doctor Illustration" class="w-full max-w-[300px] h-auto rounded-lg shadow">
+          </div>
+        </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const items = document.querySelectorAll('.item');
+    const contentBox = document.getElementById('content');
+    const texts = [
+      "Вы выбрали: <strong>Профессионализм</strong>",
+      "Вы выбрали: <strong>Широкий спектр услуг</strong>",
+      "Вы выбрали: <strong>Современное оборудование</strong>",
+      "Вы выбрали: <strong>Высокий уровень обслуживания</strong>",
+      "Вы выбрали: <strong>Скорая помощь и служба помощи на дому</strong>",
+      "Вы выбрали: <strong>Терапевтические и хирургические стационары</strong>",
+      "Вы выбрали: <strong>Высокий уровень обслуживания</strong>"
+    ];
+
+    function showContent(index) {
+      items.forEach(item => item.classList.remove('bg-[#e6f2ee]'));
+      items[index].classList.add('bg-[#e6f2ee]');
+      contentBox.innerHTML = texts[index];
+    }
+  </script>
+
+        <section>
+            <div>
+                <h1 class="text-6xl p-10">Наши партнеры</h1>
+            </div>
+            <div class="mt-[100px]">
+                <div class="flex justify-evenly flex-wrap">
+                 <div>
+                    <img src="./1 (1).png" alt="">
+                 </div>
+                  <div>
+                    <img src="./1 (1).png" alt="">
+                 </div>
+                  <div>
+                    <img src="./1 (1).png" alt="">
+                 </div>
+                  <div>
+                    <img src="./1 (1).png" alt="">
+                 </div>
+                 <div>
+                     <img src="./1 (1).png" alt="">
+                    </div>
+                    <div>
+                        <img src="./1 (1).png" alt="">
+                    </div>
+                </div>
+                <div class="flex justify-evenly flex-wrap"> 
+                    <div>
+                    <img src="./1 (1).png" alt="">
+                 </div>
+                    <div>
+                    <img src="./1 (1).png" alt="">
+                 </div> 
+                 <div>
+                    <img src="./1 (1).png" alt="">
+                 </div> 
+                 <div>
+                    <img src="./1 (1).png" alt="">
+                 </div>
+                  <div>
+                    <img src="./1 (1).png" alt="">
+                 </div>
+                  <div>
+                    <img src="./1 (1).png" alt="">
+                 </div>
+                </div>
+            </div>
+        </section>
+        <section class="h-[300vh] xl:h-[100vh]" style="background-image: url(./Mask\ group\ \(7\).png);background-color: #F1F5F8;background-attachment: fixed;">
+            <div><h1 class="text-5xl p-10">Наши лицензии</h1></div>
+            <div class="flex justify-evenly flex-col items-center gap-10 xl:flex-row ">
+                <div>
+                    <img src="./image 7.png">
+                </div>
+                <div>
+                    <img src="./image 7.png">
+                </div>
+                <div>
+                    <img src="./image 7.png">
+                </div>
+                <div>
+                    <img src="./image 7.png" class="im5">
+                </div>
+                <div>
+                    <img src="./image 7.png">
+                </div>
+            </div>
+        </section>
+        <section class="flex bg-[#272727] justify-between items-center flex-col xl:flex-row">
+            <aside class="flex  flex-col gap-10 p-10 text-white">
+                <h1 class="text-6xl font-bold">Наши контакты</h1>
+                <div>
+                    <p>Адрес</p>
+                    <h5 class="font-bold">г. Томск, ул. 79 Гвардейской дивизии, 6</h5>
+                </div>
+                <div>
+                    <p>Телефон</p>
+                    <h5 class="font-bold">8 (3822) 50-00-49</h5>
+                </div>
+                <div>
+                    <p>Почта</p>
+                    <h5 class="font-bold">info@docnear.ru</h5>
+                </div>
+                <button class="appointment-btn">
+                    Записаться на прием
+                </button>
+            </aside>
+            <iframe class="w-full xl:w-[800px] xl:h-[700px]"
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902084820735!2d69.240073!3d42.874621!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38aef4c5f4b5c5b5%3A0x3e5d5c5e5c5e5c5e!2sMoscow!5e0!3m2!1sen!2sru!4v1690000000000!5m2!1sen!2sru"
+  width="100%"
+  height="400"
+  style="border:0;"
+  allowfullscreen=""
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade">
+</iframe>
+        </section>
+    </main>
+    <footer class="flex justify-evenly bg-[#279A59] text-white p-10 flex-wrap gap-10">
+        <ul class="flex flex-col gap-5">
+            <img src="./image 1.png">
+            <li>Адрес</li>
+            <li>Москва, ул. Пушкина, д.43</li>
+            <li>Телефон</li>
+            <li>+7 (9__) ___-__-__</li>
+            <li>Почта</li>
+            <li>Poshta@gmail.com
+            </li>
+        </ul>
+        <ul class="flex flex-col gap-5">
+            <li>О клинике</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+        </ul>
+         <ul class="flex flex-col gap-5">
+            <li>Врач</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+        </ul>
+         <ul class="flex flex-col gap-5">
+            <li>Пациентам</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+        </ul>
+         <ul class="flex flex-col gap-5">
+            <li>О клинике</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+        </ul>
+    </footer>
+</body>
+</html>

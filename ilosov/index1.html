@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./src/output.css">
+  <style>
+    .btn {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .btn svg {
+      width: 28px;
+      height: 28px;
+      transition: transform 0.4s ease;
+      z-index: 2;
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      transform: scale(0);
+      transition: transform 0.5s ease;
+      z-index: 1;
+    }
+
+    .btn:hover::after {
+      transform: scale(2.5);
+    }
+
+    .btn:hover {
+      box-shadow: 0 0 15px #2ecc71;
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    .btn-outline {
+      border: 2px solid #2ecc71;
+      background: white;
+    }
+
+    .btn-outline svg {
+      fill: #2ecc71;
+    }
+
+    .btn-outline:active {
+      background: #2ecc71;
+    }
+
+    .btn-outline:active svg {
+      fill: white;
+      transform: translateX(-5px) scale(1.2);
+    }
+
+    .btn-filled {
+      background: #2ecc71;
+      border: none;
+    }
+
+    .btn-filled svg {
+      fill: white;
+    }
+
+    .btn-filled:active {
+      background: #27ae60;
+    }
+
+    .btn-filled:active svg {
+      transform: translateX(5px) scale(1.2);
+    }
+    
+    .appointment-btn {
+      position: relative;
+      padding: 18px 40px;
+      font-size: 18px;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #2ecc71, #27ae60);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      letter-spacing: 0.5px;
+    }
+
+    .appointment-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 300%;
+      height: 300%;
+      background: rgba(255,255,255,0.15);
+      transform: translate(-50%, -50%) scale(0);
+      border-radius: 50%;
+      transition: transform 0.6s ease;
+      z-index: 1;
+    }
+
+    .appointment-btn:hover::before {
+      transform: translate(-50%, -50%) scale(1.5);
+    }
+
+    .appointment-btn:hover {
+      box-shadow: 0 0 25px #2ecc71;
+      transform: translateY(-2px);
+    }
+
+    .appointment-btn:active {
+      transform: scale(0.96);
+      box-shadow: 0 0 15px #27ae60;
+    }
+
+    .appointment-btn span {
+      position: relative;
+      z-index: 2;
+      display: inline-block;
+      animation: slideIn 0.6s ease forwards;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(12px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+        .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .item.active {
+      background: #e6f2ee;
+    }
+
+    .number {
+      font-size: 20px;
+      font-weight: bold;
+      color: #2a7f62;
+      width: 50px;
+      text-align: center;
+      margin-right: 15px;
+    }
+
+    .text {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .content-box {
+      margin-top: 30px;
+      padding: 20px;
+      background: #d0e8dc;
+      border-radius: 8px;
+      color: #2a7f62;
+      font-size: 16px;
+      display: none;
+    }
+
+    .content-box.active {
+      display: block;
+    }
+    .royal-action-btn {
+      background-color: #ffffff;
+      color: #28a745;
+      padding: 14px 28px;
+      border: 2px solid #28a745;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+   .pagination {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .page-link {
+      text-decoration: none;
+      padding: 10px 16px;
+      border: 2px solid #4CAF50;
+      color: #4CAF50;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-link:hover {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .page-link.active {
+      background: #4CAF50;
+      color: white;
+      box-shadow: 0 0 0 2px #c8f7c5 inset;
+    }
+
+    .arrow {
+      font-size: 18px;
+      padding: 10px 14px;
+      border: 2px solid transparent;
+      color: #4CAF50;
+      background: none;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .arrow:hover {
+      transform: scale(1.2);
+      background-color: rgba(76, 175, 80, 0.1);
+    }
+
+    .show-more {
+      display: inline-block;
+      text-decoration: none;
+      padding: 14px 28px;
+      background: #4CAF50;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s ease;
+    }
+
+    .show-more::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: left 0.4s ease;
+    }
+
+    .show-more:hover::after {
+      left: 100%;
+    }
+
+    .show-more:hover {
+      background: #45a049;
+    }
+    .royal-action-btn::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(40, 167, 69, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.4s ease, height 0.4s ease;
+    }
+
+    .royal-action-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 16px rgba(40, 167, 69, 0.4);
+    }
+
+    .royal-action-btn:active::after {
+      width: 200px;
+      height: 200px;
+    }
+
+  </style>
+</head>
+<body>
+   <header>
+        <nav class="xl:flex items-center justify-evenly p-10 hidden ">
+            <p>Сеть клиник Томской области</p>
+            <p>Версия для слабовидящих</p>
+            <div class="flex gap-5 items-center">
+                <p>+ 7 (978) 00-00-000</p>
+                <a href="./index1.html">
+                    <button class="appointment-btn">
+                        <span>Записаться на прием</span>
+                    </button>           
+                </a>
+                    </div>
+        </nav>
+        <nav class="flex justify-evenly items-center p-10 gap-5 xl:p-0">
+            <img src="./image 1.png">
+            <img src="./burger.png" class="block xl:hidden">
+            <ul class="xl:flex gap-5 hidden">
+                <li>Врачи</li>
+                <li>Услуги</li>
+                <li>Диагностика</li>
+                <li>Анализы</li>
+                <li>Акции</li>
+                <li>Пациентам</li>
+                <li>О клинике</li>
+                <li>Отзывы</li>
+                <li>Контакты</li>
+            </ul>
+        </nav>
+   </header>
+   <section class="flex justify-evenly xl:p-10 flex-wrap">
+     <article class="flex flex-col gap-5">
+                    <img src="./Rectangle 5 (4).png">
+                    <h4>Иванов Иван Иванович</h4>
+                    <p>Врач-уролог</p>
+                    <a href="./index.html">
+                        <button class="appointment-btn ">
+                            <span>Записаться на прием</span>
+                        </button>
+                    </a>
+                    <a href="./index.html">
+                      <button class="group relative inline-flex items-center px-6 py-2 border-2 border-green-500 text-green-500 font-semibold text-sm rounded-md overflow-hidden transition-all duration-300 hover:text-white hover:border-green-600">
+                       <span class="absolute inset-0 bg-green-500 translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+                       <span class="relative z-10">Подробнее</span>
+                     </button>
+                    </a>
+                </article>
+                 <article class="flex flex-col gap-5">
+                    <img src="./Rectangle 5 (4).png">
+                    <h4>Иванов Иван Иванович</h4>
+                    <p>Врач-уролог</p>
+                    <a href="./index.html">
+                        <button class="appointment-btn ">
+                            <span>Записаться на прием</span>
+                        </button>
+                    </a>
+                    <a href="./index.html">
+                      <button class="group relative inline-flex items-center px-6 py-2 border-2 border-green-500 text-green-500 font-semibold text-sm rounded-md overflow-hidden transition-all duration-300 hover:text-white hover:border-green-600">
+                       <span class="absolute inset-0 bg-green-500 translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+                       <span class="relative z-10">Подробнее</span>
+                     </button>
+                    </a>
+                </article>
+                 <article class="flex flex-col gap-5">
+                    <img src="./Rectangle 5 (4).png">
+                    <h4>Иванов Иван Иванович</h4>
+                    <p>Врач-уролог</p>
+                    <a href="./index.html">
+                        <button class="appointment-btn ">
+                            <span>Записаться на прием</span>
+                        </button>
+                    </a>
+                    <a href="./index.html">
+                      <button class="group relative inline-flex items-center px-6 py-2 border-2 border-green-500 text-green-500 font-semibold text-sm rounded-md overflow-hidden transition-all duration-300 hover:text-white hover:border-green-600">
+                       <span class="absolute inset-0 bg-green-500 translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+                       <span class="relative z-10">Подробнее</span>
+                     </button>
+                    </a>
+                </article>
+   </section>
+      <section class="flex justify-evenly xl:p-10 flex-wrap">
+     <article class="flex flex-col gap-5">
+                    <img src="./Rectangle 5 (4).png">
+                    <h4>Иванов Иван Иванович</h4>
+                    <p>Врач-уролог</p>
+                    <a href="./index.html">
+                        <button class="appointment-btn ">
+                            <span>Записаться на прием</span>
+                        </button>
+                    </a>
+                    <a href="./index.html">
+                      <button class="group relative inline-flex items-center px-6 py-2 border-2 border-green-500 text-green-500 font-semibold text-sm rounded-md overflow-hidden transition-all duration-300 hover:text-white hover:border-green-600">
+                       <span class="absolute inset-0 bg-green-500 translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+                       <span class="relative z-10">Подробнее</span>
+                     </button>
+                    </a>
+                </article>
+                 <article class="flex flex-col gap-5">
+                    <img src="./Rectangle 5 (4).png">
+                    <h4>Иванов Иван Иванович</h4>
+                    <p>Врач-уролог</p>
+                    <a href="./index.html">
+                        <button class="appointment-btn ">
+                            <span>Записаться на прием</span>
+                        </button>
+                    </a>
+                    <a href="./index.html">
+                      <button class="group relative inline-flex items-center px-6 py-2 border-2 border-green-500 text-green-500 font-semibold text-sm rounded-md overflow-hidden transition-all duration-300 hover:text-white hover:border-green-600">
+                       <span class="absolute inset-0 bg-green-500 translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+                       <span class="relative z-10">Подробнее</span>
+                     </button>
+                    </a>
+                </article>
+                 <article class="flex flex-col gap-5">
+                    <img src="./Rectangle 5 (4).png">
+                    <h4>Иванов Иван Иванович</h4>
+                    <p>Врач-уролог</p>
+                    <a href="./index.html">
+                        <button class="appointment-btn ">
+                            <span>Записаться на прием</span>
+                        </button>
+                    </a>
+                    <a href="./index.html">
+                      <button class="group relative inline-flex items-center px-6 py-2 border-2 border-green-500 text-green-500 font-semibold text-sm rounded-md overflow-hidden transition-all duration-300 hover:text-white hover:border-green-600">
+                       <span class="absolute inset-0 bg-green-500 translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+                       <span class="relative z-10">Подробнее</span>
+                     </button>
+                    </a>
+                </article>
+   </section>
+      <section class="flex justify-evenly xl:p-10  flex-wrap">
+     <article class="flex flex-col gap-5">
+                    <img src="./Rectangle 5 (4).png">
+                    <h4>Иванов Иван Иванович</h4>
+                    <p>Врач-уролог</p>
+                    <a href="./index.html">
+                        <button class="appointment-btn ">
+                            <span>Записаться на прием</span>
+                        </button>
+                    </a>
+                    <a href="./index.html">
+                      <button class="group relative inline-flex items-center px-6 py-2 border-2 border-green-500 text-green-500 font-semibold text-sm rounded-md overflow-hidden transition-all duration-300 hover:text-white hover:border-green-600">
+                       <span class="absolute inset-0 bg-green-500 translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+                       <span class="relative z-10">Подробнее</span>
+                     </button>
+                    </a>
+                </article>
+                 <article class="flex flex-col gap-5">
+                    <img src="./Rectangle 5 (4).png">
+                    <h4>Иванов Иван Иванович</h4>
+                    <p>Врач-уролог</p>
+                    <a href="./index.html">
+                        <button class="appointment-btn ">
+                            <span>Записаться на прием</span>
+                        </button>
+                    </a>
+                    <a href="./index.html">
+                      <button class="group relative inline-flex items-center px-6 py-2 border-2 border-green-500 text-green-500 font-semibold text-sm rounded-md overflow-hidden transition-all duration-300 hover:text-white hover:border-green-600">
+                       <span class="absolute inset-0 bg-green-500 translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+                       <span class="relative z-10">Подробнее</span>
+                     </button>
+                    </a>
+                </article>
+                 <article class="flex flex-col gap-5">
+                    <img src="./Rectangle 5 (4).png">
+                    <h4>Иванов Иван Иванович</h4>
+                    <p>Врач-уролог</p>
+                    <a href="./index.html">
+                        <button class="appointment-btn ">
+                            <span>Записаться на прием</span>
+                        </button>
+                    </a>
+                    <a href="./index.html">
+                      <button class="group relative inline-flex items-center px-6 py-2 border-2 border-green-500 text-green-500 font-semibold text-sm rounded-md overflow-hidden transition-all duration-300 hover:text-white hover:border-green-600">
+                       <span class="absolute inset-0 bg-green-500 translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+                       <span class="relative z-10">Подробнее</span>
+                     </button>
+                    </a>
+                </article>
+   </section>
+      <section class="flex justify-evenly xl:p-10  flex-wrap">
+     <article class="flex flex-col gap-5">
+                    <img src="./Rectangle 5 (4).png">
+                    <h4>Иванов Иван Иванович</h4>
+                    <p>Врач-уролог</p>
+                    <a href="./index.html">
+                        <button class="appointment-btn ">
+                            <span>Записаться на прием</span>
+                        </button>
+                    </a>
+                    <a href="./index.html">
+                      <button class="group relative inline-flex items-center px-6 py-2 border-2 border-green-500 text-green-500 font-semibold text-sm rounded-md overflow-hidden transition-all duration-300 hover:text-white hover:border-green-600">
+                       <span class="absolute inset-0 bg-green-500 translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+                       <span class="relative z-10">Подробнее</span>
+                     </button>
+                    </a>
+                </article>
+                 <article class="flex flex-col gap-5">
+                    <img src="./Rectangle 5 (4).png">
+                    <h4>Иванов Иван Иванович</h4>
+                    <p>Врач-уролог</p>
+                    <a href="./index.html">
+                        <button class="appointment-btn ">
+                            <span>Записаться на прием</span>
+                        </button>
+                    </a>
+                    <a href="./index.html">
+                      <button class="group relative inline-flex items-center px-6 py-2 border-2 border-green-500 text-green-500 font-semibold text-sm rounded-md overflow-hidden transition-all duration-300 hover:text-white hover:border-green-600">
+                       <span class="absolute inset-0 bg-green-500 translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+                       <span class="relative z-10">Подробнее</span>
+                     </button>
+                    </a>
+                </article>
+                 <article class="flex flex-col gap-5">
+                    <img src="./Rectangle 5 (4).png">
+                    <h4>Иванов Иван Иванович</h4>
+                    <p>Врач-уролог</p>
+                    <a href="./index.html">
+                        <button class="appointment-btn ">
+                            <span>Записаться на прием</span>
+                        </button>
+                    </a>
+                    <a href="./index.html">
+                      <button class="group relative inline-flex items-center px-6 py-2 border-2 border-green-500 text-green-500 font-semibold text-sm rounded-md overflow-hidden transition-all duration-300 hover:text-white hover:border-green-600">
+                       <span class="absolute inset-0 bg-green-500 translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+                       <span class="relative z-10">Подробнее</span>
+                     </button>
+                    </a>
+                </article>
+   </section>
+   <section class="flex flex-col items-center">
+      <div class="pagination">
+    <a href="./index.html" class="arrow">←</a>
+    <a href="./index.html" class="page-link active">1</a>
+    <a href="./index.html" class="page-link">2</a>
+    <a href="./index.html" class="page-link">3</a>
+    <a href="./index.html" class="page-link">4</a>
+    <a href="./index.html" class="page-link">5</a>
+    <a href="./index.html" class="page-link">6</a>
+    <a href="./index.html" class="arrow">→</a>
+  </div>
+
+  <a href="#more" class="show-more">Показать еще</a>
+   </section>
+   <div class="flex justify-center">
+   <section class="bg-[#272727]  mt-[100px] text-white flex justify-between w-[1440px] h-[500px] xl:h-[359px] rounded-4xl p-10 flex-col xl:flex-row" >
+    <aside class="flex flex-col gap-5">
+      <h1>Хотите, мы Вам перезвоним?</h1>
+      <p>Оставьте заявку и мы подробно ответим на все Ваши вопросы!</p>
+      <div class="flex gap-5 flex-col xl:flex-row">
+        <div>
+          <label>Ваше ФИО</label>
+          <br>
+          <input type="text" placeholder="Иванов Иван Иванович" class="w-[270px] h-[44px] rounded-[30px] bg-white text-black pl-2">
+        </div>
+        <div>
+          <label>Номер телефона</label>
+          <br>
+          <input type="text" placeholder="+7 (___) ___-__-__" class="w-[270px] h-[44px] rounded-[30px] bg-white text-black pl-2">
+        </div>
+      </div>
+      <a href="./index.html">
+            <button class="appointment-btn ">
+                <span>Записаться на прием</span>
+            </button>
+        </a>
+        <p>Нажимая на кнопку Заказать звонок вы соглашаетесь с <span class="text-green-700">политикой конфиденциальности</span></p>
+    </aside>
+    <img src="./1b758ab0212d9897dbada094d2e596b142fdb30b.png" class="relative  mt-[-140px] mr-[-20px] w-[700px] hidden xl:block">
+   </section>
+   </div>
+    <footer class="flex justify-evenly bg-[#279A59] text-white p-10 flex-wrap gap-10 mt-[100px]">
+        <ul class="flex flex-col gap-5">
+            <img src="./image 1.png">
+            <li>Адрес</li>
+            <li>Москва, ул. Пушкина, д.43</li>
+            <li>Телефон</li>
+            <li>+7 (9__) ___-__-__</li>
+            <li>Почта</li>
+            <li>Poshta@gmail.com
+            </li>
+        </ul>
+        <ul class="flex flex-col gap-5">
+            <li>О клинике</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+        </ul>
+         <ul class="flex flex-col gap-5">
+            <li>Врач</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+        </ul>
+         <ul class="flex flex-col gap-5">
+            <li>Пациентам</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+        </ul>
+         <ul class="flex flex-col gap-5">
+            <li>О клинике</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+            <li>Название пункта меню</li>
+        </ul>
+    </footer>
+</body>
+</html>
